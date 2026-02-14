@@ -33,6 +33,10 @@ body{
     position:fixed;
     inset:0;
     background:#1a1a1a;
+    background-image:url("https://i.imgur.com/AcBA0Pi.jpeg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
     overflow:hidden;
 }
 
@@ -41,16 +45,7 @@ body{
     bottom:0;
     height:180px;
     width:100%;
-    background:#1a1a1a;
-}
-
-/* NEW TREE STYLE — using your PNG */
-.tree{
-    position:absolute;
-    bottom:180px;
-    width:120px;
-    height:160px;
-    background:url("https://i.imgur.com/AcBA0Pi.jpeg") no-repeat center/contain;
+    background:transparent;
 }
 
 /* RIVER */
@@ -59,7 +54,7 @@ body{
     bottom:0;
     height:120px;
     width:200px;
-    background:#1a1a1a;
+    background:transparent;
 }
 
 /* ===== WHEEL TOP ===== */
@@ -135,12 +130,6 @@ body{
     padding:6px 25px;
 }
 
-#musicToggle{
-    margin-top:8px;
-    padding:6px 25px;
-    margin-left:10px;
-}
-
 /* ===== POPUP ===== */
 
 #popup{
@@ -179,12 +168,6 @@ body{
 
 <div id="world">
     <div class="ground"></div>
-
-    <div class="tree" style="left:400px"></div>
-    <div class="tree" style="left:900px"></div>
-
-    <div class="river" style="left:600px"></div>
-    <div class="river" style="left:1400px"></div>
 </div>
 
 <div id="pin">▼</div>
@@ -196,46 +179,18 @@ body{
 <div id="ui">
     <button id="spinBtn">SPIN</button><br>
     <button id="skipBtn">Skip</button>
-    <button id="musicToggle">🔊 Music ON</button>
 </div>
 
 <div id="popup"></div>
 <div id="flash"></div>
 
-<audio id="bgMusic" loop volume="0.3"></audio>
 <audio id="tick" src="tick.mp3"></audio>
-<audio id="spinSound" src="spin.mp3"></audio>
+<audio id="spin" src="spin.mp3"></audio>
+<audio id="bgMusic" loop>
+    <source src="https://p.scdn.co/mp3-preview/2e0f8cb4bcf889af1e96f9e68e2bbed6cfc0f81d" type="audio/mpeg">
+</audio>
 
 <script>
-
-/* ===== BACKGROUND MUSIC ===== */
-
-let musicEnabled=true;
-const bgMusic=document.getElementById("bgMusic");
-
-// Using a royalty-free background music URL (you can replace with your own)
-bgMusic.src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3";
-bgMusic.volume=0.3;
-
-function toggleMusic(){
-    musicEnabled=!musicEnabled;
-    if(musicEnabled){
-        bgMusic.play();
-        document.getElementById("musicToggle").innerText="🔊 Music ON";
-    }else{
-        bgMusic.pause();
-        document.getElementById("musicToggle").innerText="🔇 Music OFF";
-    }
-}
-
-document.getElementById("musicToggle").onclick=toggleMusic;
-
-// Start playing background music
-window.addEventListener("click",()=>{
-    if(musicEnabled && bgMusic.paused){
-        bgMusic.play();
-    }
-},{once:true});
 
 /* ===== STATS SYSTEM ===== */
 
@@ -277,7 +232,7 @@ const wheel=document.getElementById("wheel");
 
 function buildWheel(){
     wheel.innerHTML="";
-    for(let i=0;i<400;i++){ 
+    for(let i=0;i<400;i++){
         let m=MEMES[i%MEMES.length];
         let r=RARITIES.find(x=>x.name===m.rarity);
 
@@ -354,7 +309,7 @@ function startTickSound(){
     let t=document.getElementById("tick");
     tickInterval=setInterval(()=>{
         t.currentTime=0;
-        t.play().catch(e=>console.log("Audio play failed:",e));
+        t.play();
     },60);
 }
 
@@ -364,14 +319,14 @@ function updateTickSpeed(progress){
     tickInterval=setInterval(()=>{
         let t=document.getElementById("tick");
         t.currentTime=0;
-        t.play().catch(e=>console.log("Audio play failed:",e));
+        t.play();
     },speed);
 }
 
 function playSpinSound(){
-    let sound=document.getElementById("spinSound");
-    sound.currentTime=0;
-    sound.play().catch(e=>console.log("Spin sound failed:",e));
+    let s=document.getElementById("spin");
+    s.currentTime=0;
+    s.play().catch(e=>console.log("Spin sound error:",e));
 }
 
 function skipSpin(){
@@ -412,6 +367,19 @@ function flash(color){
     f.style.opacity="0.5";
     setTimeout(()=>f.style.opacity="0",300);
 }
+
+/* ===== BACKGROUND MUSIC ===== */
+
+let musicStarted=false;
+
+document.addEventListener("click",()=>{
+    if(!musicStarted){
+        let bgm=document.getElementById("bgMusic");
+        bgm.volume=0.3;
+        bgm.play().catch(e=>console.log("Music error:",e));
+        musicStarted=true;
+    }
+});
 
 </script>
 </body>
