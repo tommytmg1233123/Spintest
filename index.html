@@ -32,29 +32,135 @@ body{
 #world{
     position:fixed;
     inset:0;
-    background:#1a1a1a;
-    background-image:url("https://i.imgur.com/AcBA0Pi.jpeg");
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
+    background:linear-gradient(180deg, #7dd3c0 0%, #5cbfad 100%);
     overflow:hidden;
 }
 
+/* GROUND */
 .ground{
     position:absolute;
     bottom:0;
-    height:180px;
     width:100%;
-    background:transparent;
+    height:150px;
+    background:linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
+    border-top:5px solid #1b5e20;
 }
 
-/* RIVER */
-.river{
+/* DIRT PATTERN */
+.dirt{
     position:absolute;
     bottom:0;
-    height:120px;
-    width:200px;
-    background:transparent;
+    width:100%;
+    height:80px;
+    background-image: 
+        radial-gradient(circle, rgba(139,69,19,0.3) 2px, transparent 2px);
+    background-size:20px 20px;
+    background-position:0 0;
+}
+
+/* STICKMAN */
+#stickman{
+    position:absolute;
+    bottom:150px;
+    left:50%;
+    transform:translateX(-50%);
+    width:60px;
+    height:100px;
+    z-index:5;
+}
+
+.stickman-head{
+    position:absolute;
+    width:30px;
+    height:30px;
+    background:radial-gradient(circle at 35% 35%, #ffeb3b, #fdd835);
+    border:2px solid #000;
+    border-radius:50%;
+    left:15px;
+    top:0;
+}
+
+.stickman-eyes{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.stickman-eye{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#000;
+    border-radius:50%;
+    top:10px;
+}
+
+.stickman-eye:first-child{
+    left:8px;
+}
+
+.stickman-eye:last-child{
+    right:8px;
+}
+
+.stickman-smile{
+    position:absolute;
+    width:12px;
+    height:8px;
+    border:2px solid #000;
+    border-top:none;
+    border-radius:0 0 12px 12px;
+    bottom:6px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.stickman-body{
+    position:absolute;
+    width:2px;
+    height:25px;
+    background:#000;
+    left:50%;
+    top:35px;
+    transform:translateX(-50%);
+}
+
+.stickman-arms{
+    position:absolute;
+    width:40px;
+    height:2px;
+    background:#000;
+    left:50%;
+    top:40px;
+    transform:translateX(-50%);
+}
+
+.stickman-legs{
+    position:absolute;
+    width:2px;
+    height:25px;
+    background:#000;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+}
+
+.stickman-leg{
+    position:absolute;
+    width:2px;
+    height:25px;
+    background:#000;
+    bottom:0;
+}
+
+.stickman-leg:first-child{
+    left:15px;
+    transform:skewX(-10deg);
+}
+
+.stickman-leg:last-child{
+    right:15px;
+    transform:skewX(10deg);
 }
 
 /* ===== WHEEL TOP ===== */
@@ -120,28 +226,33 @@ body{
 }
 
 .btn{
-    padding:14px 50px;
-    font-size:22px;
+    padding:16px 60px;
+    font-size:24px;
     font-weight:bold;
     border-radius:8px;
-    border:3px solid #333;
-    background:linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
-    color:white;
+    border:3px solid #8B4513;
+    background:linear-gradient(180deg, #2d5016 0%, #1a3a0f 100%);
+    color:#ffffff;
     cursor:pointer;
-    text-shadow:2px 2px 4px rgba(0,0,0,0.5);
-    box-shadow:0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow:2px 2px 4px rgba(0,0,0,0.8);
+    box-shadow:0 4px 8px rgba(0,0,0,0.6), 
+               inset 0 1px 0 rgba(255,255,255,0.2),
+               0 0 20px rgba(0,0,0,0.3);
     transition:all 0.1s;
+    border-image:linear-gradient(135deg, #8B4513 0%, #D2B48C 50%, #8B4513 100%) 1;
 }
 
 .btn:hover{
-    background:linear-gradient(180deg, #66bb6a 0%, #43a047 100%);
+    background:linear-gradient(180deg, #3d6b1e 0%, #2a4d1a 100%);
     transform:translateY(-2px);
-    box-shadow:0 6px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
+    box-shadow:0 6px 12px rgba(0,0,0,0.8), 
+               inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 .btn:active{
     transform:translateY(0);
-    box-shadow:0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(0,0,0,0.2);
+    box-shadow:0 2px 4px rgba(0,0,0,0.6), 
+               inset 0 1px 0 rgba(0,0,0,0.2);
 }
 
 /* ===== MUSIC BUTTON BOTTOM RIGHT ===== */
@@ -154,25 +265,29 @@ body{
     font-size:20px;
     font-weight:bold;
     border-radius:8px;
-    border:3px solid #333;
-    background:linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
+    border:3px solid #8B4513;
+    background:linear-gradient(180deg, #2d5016 0%, #1a3a0f 100%);
     color:white;
     cursor:pointer;
-    text-shadow:2px 2px 4px rgba(0,0,0,0.5);
-    box-shadow:0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow:2px 2px 4px rgba(0,0,0,0.8);
+    box-shadow:0 4px 8px rgba(0,0,0,0.6), 
+               inset 0 1px 0 rgba(255,255,255,0.2);
     transition:all 0.1s;
     z-index:15;
+    border-image:linear-gradient(135deg, #8B4513 0%, #D2B48C 50%, #8B4513 100%) 1;
 }
 
 #musicBtn:hover{
-    background:linear-gradient(180deg, #66bb6a 0%, #43a047 100%);
+    background:linear-gradient(180deg, #3d6b1e 0%, #2a4d1a 100%);
     transform:translateY(-2px);
-    box-shadow:0 6px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
+    box-shadow:0 6px 12px rgba(0,0,0,0.8), 
+               inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 #musicBtn:active{
     transform:translateY(0);
-    box-shadow:0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(0,0,0,0.2);
+    box-shadow:0 2px 4px rgba(0,0,0,0.6), 
+               inset 0 1px 0 rgba(0,0,0,0.2);
 }
 
 /* ===== POPUP ===== */
@@ -212,7 +327,26 @@ body{
 </div>
 
 <div id="world">
-    <div class="ground"></div>
+    <div class="ground">
+        <div class="dirt"></div>
+    </div>
+
+    <!-- STICKMAN CHARACTER -->
+    <div id="stickman">
+        <div class="stickman-head">
+            <div class="stickman-eyes">
+                <div class="stickman-eye"></div>
+                <div class="stickman-eye"></div>
+            </div>
+            <div class="stickman-smile"></div>
+        </div>
+        <div class="stickman-body"></div>
+        <div class="stickman-arms"></div>
+        <div class="stickman-legs">
+            <div class="stickman-leg"></div>
+            <div class="stickman-leg"></div>
+        </div>
+    </div>
 </div>
 
 <div id="pin">▼</div>
@@ -222,7 +356,7 @@ body{
 </div>
 
 <div id="ui">
-    <button class="btn" id="spinBtn">SPIN</button>
+    <button class="btn" id="spinBtn">ROLL</button>
     <button class="btn" id="skipBtn">SKIP</button>
 </div>
 
@@ -244,13 +378,17 @@ let musicStarted=false;
 const bgMusic=document.getElementById("bgMusic");
 const musicBtn=document.getElementById("musicBtn");
 
-// Replace with your hosted Blue Boi audio URL
-bgMusic.src="https://open.spotify.com/track/4SKBaun9EERfPsuLYqF1Fm?si=c5999e29ccc543a4";
+// Use a working audio file - Blue Boi preview or your hosted URL
+bgMusic.src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 bgMusic.volume=0.3;
+bgMusic.crossOrigin="anonymous";
 
+// Start music on any user interaction
 document.addEventListener("click",()=>{
-    if(!musicStarted){
-        bgMusic.play().catch(e=>console.log("Music error:",e));
+    if(!musicStarted && musicOn){
+        bgMusic.play().catch(e=>{
+            console.log("Music autoplay failed, user interaction required");
+        });
         musicStarted=true;
     }
 });
@@ -259,13 +397,28 @@ musicBtn.onclick=(e)=>{
     e.stopPropagation();
     musicOn=!musicOn;
     if(musicOn){
-        bgMusic.play().catch(e=>console.log("Music error:",e));
+        bgMusic.play().catch(e=>console.log("Music play error:",e));
         musicBtn.innerText="🔊 ON";
     }else{
         bgMusic.pause();
         musicBtn.innerText="🔇 OFF";
     }
 };
+
+/* ===== STICKMAN MOVEMENT ===== */
+
+const stickman=document.getElementById("stickman");
+let stickmanX=50;
+
+document.addEventListener("keydown",(e)=>{
+    if(e.key==="ArrowLeft"){
+        stickmanX=Math.max(10,stickmanX-2);
+        stickman.style.left=stickmanX+"%";
+    }else if(e.key==="ArrowRight"){
+        stickmanX=Math.min(90,stickmanX+2);
+        stickman.style.left=stickmanX+"%";
+    }
+});
 
 /* ===== STATS SYSTEM ===== */
 
