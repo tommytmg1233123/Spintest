@@ -27,158 +27,34 @@ body{
     z-index:20;
 }
 
-/* ===== RARITY CHANCES TOP RIGHT ===== */
-
-#rarityDisplay{
-    position:fixed;
-    top:20px;
-    right:30px;
-    background:#000000aa;
-    color:white;
-    padding:15px 25px;
-    border-radius:8px;
-    font-size:16px;
-    font-weight:bold;
-    z-index:20;
-    text-align:right;
-}
-
-#rarityDisplay div{
-    margin:8px 0;
-}
-
 /* ===== WORLD ===== */
 
 #world{
     position:fixed;
     inset:0;
-    background:linear-gradient(180deg, #7dd3c0 0%, #5cbfad 100%);
+    background:#1a1a1a;
+    background-image:url("https://i.imgur.com/AcBA0Pi.jpeg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
     overflow:hidden;
 }
 
-/* GROUND */
 .ground{
     position:absolute;
     bottom:0;
+    height:180px;
     width:100%;
-    height:150px;
-    background:linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
-    border-top:5px solid #1b5e20;
+    background:transparent;
 }
 
-/* DIRT PATTERN */
-.dirt{
+/* RIVER */
+.river{
     position:absolute;
     bottom:0;
-    width:100%;
-    height:80px;
-    background-image: 
-        radial-gradient(circle, rgba(139,69,19,0.3) 2px, transparent 2px);
-    background-size:20px 20px;
-    background-position:0 0;
-}
-
-/* STICKMAN */
-#stickman{
-    position:absolute;
-    bottom:150px;
-    left:50%;
-    transform:translateX(-50%);
-    width:80px;
     height:120px;
-    z-index:5;
-    transition:left 0.05s linear;
-}
-
-/* Head */
-.stickman-head{
-    position:absolute;
-    width:40px;
-    height:40px;
-    background:radial-gradient(circle at 35% 35%, #ffeb3b, #fdd835);
-    border:3px solid #000;
-    border-radius:50%;
-    left:50%;
-    top:0;
-    transform:translateX(-50%);
-}
-
-/* Eyes */
-.stickman-eye{
-    position:absolute;
-    width:6px;
-    height:6px;
-    background:#000;
-    border-radius:50%;
-    top:12px;
-}
-
-.stickman-eye:first-child{
-    left:10px;
-}
-
-.stickman-eye:last-child{
-    right:10px;
-}
-
-/* Smile */
-.stickman-smile{
-    position:absolute;
-    width:16px;
-    height:10px;
-    border:2px solid #000;
-    border-top:none;
-    border-radius:0 0 16px 16px;
-    bottom:8px;
-    left:50%;
-    transform:translateX(-50%);
-}
-
-/* Body */
-.stickman-body{
-    position:absolute;
-    width:3px;
-    height:30px;
-    background:#000;
-    left:50%;
-    top:45px;
-    transform:translateX(-50%);
-}
-
-/* Arms */
-.stickman-arm{
-    position:absolute;
-    width:35px;
-    height:3px;
-    background:#000;
-    top:48px;
-}
-
-.stickman-arm:first-child{
-    left:0;
-}
-
-.stickman-arm:last-child{
-    right:0;
-}
-
-/* Legs */
-.stickman-leg{
-    position:absolute;
-    width:3px;
-    height:35px;
-    background:#000;
-    top:75px;
-    transform:skewX(-8deg);
-}
-
-.stickman-leg:first-child{
-    left:20px;
-}
-
-.stickman-leg:last-child{
-    right:20px;
-    transform:skewX(8deg);
+    width:200px;
+    background:transparent;
 }
 
 /* ===== WHEEL TOP ===== */
@@ -244,33 +120,28 @@ body{
 }
 
 .btn{
-    padding:16px 60px;
-    font-size:24px;
+    padding:14px 50px;
+    font-size:22px;
     font-weight:bold;
     border-radius:8px;
-    border:3px solid #8B4513;
-    background:linear-gradient(180deg, #2d5016 0%, #1a3a0f 100%);
-    color:#ffffff;
+    border:3px solid #333;
+    background:linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
+    color:white;
     cursor:pointer;
-    text-shadow:2px 2px 4px rgba(0,0,0,0.8);
-    box-shadow:0 4px 8px rgba(0,0,0,0.6), 
-               inset 0 1px 0 rgba(255,255,255,0.2),
-               0 0 20px rgba(0,0,0,0.3);
+    text-shadow:2px 2px 4px rgba(0,0,0,0.5);
+    box-shadow:0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
     transition:all 0.1s;
-    border-image:linear-gradient(135deg, #8B4513 0%, #D2B48C 50%, #8B4513 100%) 1;
 }
 
 .btn:hover{
-    background:linear-gradient(180deg, #3d6b1e 0%, #2a4d1a 100%);
+    background:linear-gradient(180deg, #66bb6a 0%, #43a047 100%);
     transform:translateY(-2px);
-    box-shadow:0 6px 12px rgba(0,0,0,0.8), 
-               inset 0 1px 0 rgba(255,255,255,0.3);
+    box-shadow:0 6px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 .btn:active{
     transform:translateY(0);
-    box-shadow:0 2px 4px rgba(0,0,0,0.6), 
-               inset 0 1px 0 rgba(0,0,0,0.2);
+    box-shadow:0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(0,0,0,0.2);
 }
 
 /* ===== MUSIC BUTTON BOTTOM RIGHT ===== */
@@ -283,29 +154,25 @@ body{
     font-size:20px;
     font-weight:bold;
     border-radius:8px;
-    border:3px solid #8B4513;
-    background:linear-gradient(180deg, #2d5016 0%, #1a3a0f 100%);
+    border:3px solid #333;
+    background:linear-gradient(180deg, #4caf50 0%, #388e3c 100%);
     color:white;
     cursor:pointer;
-    text-shadow:2px 2px 4px rgba(0,0,0,0.8);
-    box-shadow:0 4px 8px rgba(0,0,0,0.6), 
-               inset 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow:2px 2px 4px rgba(0,0,0,0.5);
+    box-shadow:0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
     transition:all 0.1s;
     z-index:15;
-    border-image:linear-gradient(135deg, #8B4513 0%, #D2B48C 50%, #8B4513 100%) 1;
 }
 
 #musicBtn:hover{
-    background:linear-gradient(180deg, #3d6b1e 0%, #2a4d1a 100%);
+    background:linear-gradient(180deg, #66bb6a 0%, #43a047 100%);
     transform:translateY(-2px);
-    box-shadow:0 6px 12px rgba(0,0,0,0.8), 
-               inset 0 1px 0 rgba(255,255,255,0.3);
+    box-shadow:0 6px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 #musicBtn:active{
     transform:translateY(0);
-    box-shadow:0 2px 4px rgba(0,0,0,0.6), 
-               inset 0 1px 0 rgba(0,0,0,0.2);
+    box-shadow:0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(0,0,0,0.2);
 }
 
 /* ===== POPUP ===== */
@@ -344,43 +211,18 @@ body{
     <div>Divine: <span id="s_divine">0</span></div>
 </div>
 
-<!-- ===== RARITY CHANCES ===== -->
-<div id="rarityDisplay">
-    <div><strong style="color:#888">Common: 55%</strong></div>
-    <div><strong style="color:#2196f3">Rare: 25%</strong></div>
-    <div><strong style="color:#9c27b0">Ultra: 15%</strong></div>
-    <div><strong style="color:#ff9800">Mythic: 4%</strong></div>
-    <div><strong style="color:#ffd700">Divine: 1%</strong></div>
-</div>
-
 <div id="world">
-    <div class="ground">
-        <div class="dirt"></div>
-    </div>
-
-    <!-- STICKMAN CHARACTER -->
-    <div id="stickman">
-        <div class="stickman-head">
-            <div class="stickman-eye"></div>
-            <div class="stickman-eye"></div>
-            <div class="stickman-smile"></div>
-        </div>
-        <div class="stickman-body"></div>
-        <div class="stickman-arm"></div>
-        <div class="stickman-arm"></div>
-        <div class="stickman-leg"></div>
-        <div class="stickman-leg"></div>
-    </div>
+    <div class="ground"></div>
 </div>
 
-<div id="pin">���</div>
+<div id="pin">▼</div>
 
 <div id="wheelWrap">
     <div id="wheel"></div>
 </div>
 
 <div id="ui">
-    <button class="btn" id="spinBtn">ROLL</button>
+    <button class="btn" id="spinBtn">SPIN</button>
     <button class="btn" id="skipBtn">SKIP</button>
 </div>
 
@@ -402,17 +244,31 @@ let musicStarted=false;
 const bgMusic=document.getElementById("bgMusic");
 const musicBtn=document.getElementById("musicBtn");
 
-// Use a working audio file - Blue Boi preview or your hosted URL
+// IMPORTANT: Spotify links DO NOT WORK in browsers due to copyright protection
+// You MUST use a direct MP3 URL instead. Here are your options:
+
+// OPTION 1: Use a free music hosting site (Recommended)
+// Upload your Blue Boi MP3 to one of these and replace the URL:
+// - Discord CDN (upload to Discord, get the link)
+// - Dropbox (share link, add ?dl=1 at the end)
+// - Google Drive (share link, extract the file ID)
+// - AWS S3, Firebase Storage, or similar
+
+// OPTION 2: Download from Spotify and host it yourself
+// 1. Download Blue Boi as MP3 from YouTube or music converter
+// 2. Upload to a hosting service
+// 3. Replace the URL below with the direct link
+
+// EXAMPLE: If using Dropbox, your URL would be:
+// bgMusic.src="https://dl.dropboxusercontent.com/s/your-file-id/blueboi.mp3?dl=1";
+
 bgMusic.src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 bgMusic.volume=0.3;
 bgMusic.crossOrigin="anonymous";
 
-// Start music on any user interaction
 document.addEventListener("click",()=>{
-    if(!musicStarted && musicOn){
-        bgMusic.play().catch(e=>{
-            console.log("Music autoplay failed, user interaction required");
-        });
+    if(!musicStarted){
+        bgMusic.play().catch(e=>console.log("Music error:",e));
         musicStarted=true;
     }
 });
@@ -421,52 +277,13 @@ musicBtn.onclick=(e)=>{
     e.stopPropagation();
     musicOn=!musicOn;
     if(musicOn){
-        bgMusic.play().catch(e=>console.log("Music play error:",e));
+        bgMusic.play().catch(e=>console.log("Music error:",e));
         musicBtn.innerText="🔊 ON";
     }else{
         bgMusic.pause();
         musicBtn.innerText="🔇 OFF";
     }
 };
-
-/* ===== STICKMAN MOVEMENT WITH W/A/S/D ===== */
-
-const stickman=document.getElementById("stickman");
-let stickmanX=50;
-let stickmanY=0;
-const moveSpeed=2;
-
-const keys={};
-
-document.addEventListener("keydown",(e)=>{
-    keys[e.key.toLowerCase()]=true;
-});
-
-document.addEventListener("keyup",(e)=>{
-    keys[e.key.toLowerCase()]=false;
-});
-
-function updateStickmanPosition(){
-    if(keys['w']){
-        stickmanY=Math.max(-100,stickmanY-moveSpeed);
-    }
-    if(keys['s']){
-        stickmanY=Math.min(0,stickmanY+moveSpeed);
-    }
-    if(keys['a']){
-        stickmanX=Math.max(5,stickmanX-moveSpeed);
-    }
-    if(keys['d']){
-        stickmanX=Math.min(95,stickmanX+moveSpeed);
-    }
-
-    stickman.style.left=stickmanX+"%";
-    stickman.style.bottom=stickmanY+"px";
-
-    requestAnimationFrame(updateStickmanPosition);
-}
-
-updateStickmanPosition();
 
 /* ===== STATS SYSTEM ===== */
 
@@ -488,7 +305,7 @@ function updateStats(){
     document.getElementById("s_divine").innerText=stats.Divine;
 }
 
-/* ===== RNG ===== */
+/* ===== RNG WITH FIXED RARITIES ===== */
 
 const RARITIES=[
     {name:"Common",chance:55,color:"#888"},
@@ -498,10 +315,31 @@ const RARITIES=[
     {name:"Divine",chance:1,color:"#ffd700"}
 ];
 
+// EACH MEME NOW HAS A FIXED RARITY
+// To add more memes:
+// 1. Add a new line with: {img:"URL",rarity:"Rarity"}
+// 2. Change rarity to: "Common", "Rare", "Ultra", "Mythic", or "Divine"
+// 3. A meme can ONLY be one rarity - it won't change on different rolls
+
 const MEMES=[
+    // COMMON MEMES
     {img:"https://i.imgflip.com/30b1gx.jpg",rarity:"Common"},
-    {img:"https://i.imgflip.com/1ur9b0.jpg",rarity:"Rare"},
-    {img:"https://i.imgflip.com/2fm6x.jpg",rarity:"Ultra"}
+    {img:"https://i.imgflip.com/1ur9b0.jpg",rarity:"Common"},
+    {img:"https://i.imgflip.com/2fm6x.jpg",rarity:"Common"},
+    
+    // RARE MEMES
+    {img:"https://i.imgflip.com/1g8my.jpg",rarity:"Rare"},
+    {img:"https://i.imgflip.com/265k.jpg",rarity:"Rare"},
+    
+    // ULTRA MEMES
+    {img:"https://i.imgflip.com/2hgfw.jpg",rarity:"Ultra"},
+    {img:"https://i.imgflip.com/4t0m5.jpg",rarity:"Ultra"},
+    
+    // MYTHIC MEMES
+    {img:"https://i.imgflip.com/1bij.jpg",rarity:"Mythic"},
+    
+    // DIVINE MEMES
+    {img:"https://i.imgflip.com/1siru.jpg",rarity:"Divine"}
 ];
 
 const wheel=document.getElementById("wheel");
@@ -528,6 +366,7 @@ function pick(){
     for(let r of RARITIES){
         sum+=r.chance;
         if(roll<=sum){
+            // Get all memes of this rarity and pick one randomly
             let pool=MEMES.filter(m=>m.rarity===r.name);
             return pool[Math.floor(Math.random()*pool.length)];
         }
