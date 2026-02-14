@@ -1,386 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>RNG World</title>
-
-<style>
-body{
-    margin:0;
-    overflow:hidden;
-    font-family:Arial;
-}
-
-/* ===== STATS BAR ===== */
-
-#stats{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:#000000aa;
-    color:white;
-    padding:10px 20px;
-    font-size:20px;
-    display:flex;
-    gap:30px;
-    z-index:20;
-}
-
-/* ===== WORLD ===== */
-
-#world{
-    position:fixed;
-    inset:0;
-    background:#1a1a1a;
-    background-image:url("https://i.imgur.com/AcBA0Pi.jpeg");
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-    overflow:hidden;
-}
-
-.ground{
-    position:absolute;
-    bottom:0;
-    height:180px;
-    width:100%;
-    background:transparent;
-}
-
-/* RIVER */
-.river{
-    position:absolute;
-    bottom:0;
-    height:120px;
-    width:200px;
-    background:transparent;
-}
-
-/* ===== WHEEL TOP ===== */
-
-#wheelWrap{
-    position:fixed;
-    top:60px;
-    left:50%;
-    transform:translateX(-50%);
-    width:900px;
-    height:140px;
-    overflow:hidden;
-    background:#111;
-    border:3px solid white;
-    border-radius:12px;
-}
-
-#wheel{
-    display:flex;
-}
-
-.item{
-    width:140px;
-    height:140px;
-    margin:0 4px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#222;
-    border-radius:10px;
-}
-
-.item img{
-    width:120px;
-    height:120px;
-    border-radius:8px;
-}
-
-/* PIN TOP */
-
-#pin{
-    position:fixed;
-    top:40px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:50px;
-    color:red;
-    z-index:10;
-}
-
-/* ===== BUTTONS BOTTOM ===== */
-
-#ui{
-    position:fixed;
-    bottom:30px;
-    left:50%;
-    transform:translateX(-50%);
-    text-align:center;
-}
-
-#spinBtn{
-    padding:16px 70px;
-    font-size:28px;
-    border-radius:14px;
-    border:none;
-    background:#00e5ff;
-    color:white;
-    cursor:pointer;
-}
-
-#skipBtn{
-    margin-top:8px;
-    padding:6px 25px;
-}
-
-/* ===== POPUP ===== */
-
-#popup{
-    position:fixed;
-    top:40%;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:60px;
-    font-weight:bold;
-    display:none;
-}
-
-/* FLASH */
-
-#flash{
-    position:fixed;
-    inset:0;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .2s;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Toggle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
-
 <body>
+    <h1>Music Toggle Button</h1>
+    <button id="toggleMusic">Play Music</button>
+    <audio id="music" src="your-music-file.mp3" preload="auto"></audio>
 
-<!-- ===== STATS BAR ===== -->
-<div id="stats">
-    <div>Total Spins: <span id="s_total">0</span></div>
-    <div>Common: <span id="s_common">0</span></div>
-    <div>Rare: <span id="s_rare">0</span></div>
-    <div>Ultra: <span id="s_ultra">0</span></div>
-    <div>Mythic: <span id="s_mythic">0</span></div>
-    <div>Divine: <span id="s_divine">0</span></div>
-</div>
+    <script>
+        const toggleButton = document.getElementById('toggleMusic');
+        const music = document.getElementById('music');
 
-<div id="world">
-    <div class="ground"></div>
-</div>
-
-<div id="pin">▼</div>
-
-<div id="wheelWrap">
-    <div id="wheel"></div>
-</div>
-
-<div id="ui">
-    <button id="spinBtn">SPIN</button><br>
-    <button id="skipBtn">Skip</button>
-</div>
-
-<div id="popup"></div>
-<div id="flash"></div>
-
-<audio id="tick" src="tick.mp3"></audio>
-<audio id="spin" src="spin.mp3"></audio>
-<audio id="bgMusic" loop>
-    <source src="https://p.scdn.co/mp3-preview/2e0f8cb4bcf889af1e96f9e68e2bbed6cfc0f81d" type="audio/mpeg">
-</audio>
-
-<script>
-
-/* ===== STATS SYSTEM ===== */
-
-let stats={
-    total:0,
-    Common:0,
-    Rare:0,
-    Ultra:0,
-    Mythic:0,
-    Divine:0
-};
-
-function updateStats(){
-    document.getElementById("s_total").innerText=stats.total;
-    document.getElementById("s_common").innerText=stats.Common;
-    document.getElementById("s_rare").innerText=stats.Rare;
-    document.getElementById("s_ultra").innerText=stats.Ultra;
-    document.getElementById("s_mythic").innerText=stats.Mythic;
-    document.getElementById("s_divine").innerText=stats.Divine;
-}
-
-/* ===== RNG ===== */
-
-const RARITIES=[
-    {name:"Common",chance:55,color:"#888"},
-    {name:"Rare",chance:25,color:"#2196f3"},
-    {name:"Ultra",chance:15,color:"#9c27b0"},
-    {name:"Mythic",chance:4,color:"#ff9800"},
-    {name:"Divine",chance:1,color:"#ffd700"}
-];
-
-const MEMES=[
-    {img:"https://i.imgflip.com/30b1gx.jpg",rarity:"Common"},
-    {img:"https://i.imgflip.com/1ur9b0.jpg",rarity:"Rare"},
-    {img:"https://i.imgflip.com/2fm6x.jpg",rarity:"Ultra"}
-];
-
-const wheel=document.getElementById("wheel");
-
-function buildWheel(){
-    wheel.innerHTML="";
-    for(let i=0;i<400;i++){
-        let m=MEMES[i%MEMES.length];
-        let r=RARITIES.find(x=>x.name===m.rarity);
-
-        let d=document.createElement("div");
-        d.className="item";
-        d.style.boxShadow=`0 0 20px ${r.color}`;
-        d.innerHTML=`<img src="${m.img}">`;
-
-        wheel.appendChild(d);
-    }
-}
-buildWheel();
-
-function pick(){
-    let roll=Math.random()*100;
-    let sum=0;
-    for(let r of RARITIES){
-        sum+=r.chance;
-        if(roll<=sum){
-            let pool=MEMES.filter(m=>m.rarity===r.name);
-            return pool[Math.floor(Math.random()*pool.length)];
-        }
-    }
-    return MEMES[0];
-}
-
-/* ===== SPIN SYSTEM ===== */
-
-let spinning=false;
-let tickInterval;
-let spinStart;
-
-document.getElementById("spinBtn").onclick=startSpin;
-document.getElementById("skipBtn").onclick=skipSpin;
-
-function startSpin(){
-
-    if(spinning) return;
-    spinning=true;
-
-    wheel.style.transition="none";
-    wheel.style.transform="translateX(0px)";
-    wheel.offsetHeight;
-
-    let duration=6000;
-    spinStart=performance.now();
-
-    startTickSound();
-    playSpinSound();
-
-    function anim(t){
-
-        let p=(t-spinStart)/duration;
-        if(p>1)p=1;
-
-        let ease=1-Math.pow(1-p,3);
-        let move=ease*9000;
-
-        wheel.style.transform=`translateX(-${move}px)`;
-
-        updateTickSpeed(p);
-
-        if(p<1 && spinning){
-            requestAnimationFrame(anim);
-        }else{
-            finishSpin();
-        }
-    }
-
-    requestAnimationFrame(anim);
-}
-
-function startTickSound(){
-    let t=document.getElementById("tick");
-    tickInterval=setInterval(()=>{
-        t.currentTime=0;
-        t.play();
-    },60);
-}
-
-function updateTickSpeed(progress){
-    clearInterval(tickInterval);
-    let speed=60+(progress*300);
-    tickInterval=setInterval(()=>{
-        let t=document.getElementById("tick");
-        t.currentTime=0;
-        t.play();
-    },speed);
-}
-
-function playSpinSound(){
-    let s=document.getElementById("spin");
-    s.currentTime=0;
-    s.play().catch(e=>console.log("Spin sound error:",e));
-}
-
-function skipSpin(){
-    if(!spinning)return;
-    spinning=false;
-    finishSpin();
-}
-
-function finishSpin(){
-
-    clearInterval(tickInterval);
-
-    let meme=pick();
-    let r=RARITIES.find(x=>x.name===meme.rarity);
-
-    /* UPDATE STATS */
-    stats.total++;
-    stats[r.name]++;
-    updateStats();
-
-    showPopup(r);
-    flash(r.color);
-
-    spinning=false;
-}
-
-function showPopup(r){
-    let p=document.getElementById("popup");
-    p.innerText=r.name;
-    p.style.color=r.color;
-    p.style.display="block";
-    setTimeout(()=>p.style.display="none",1500);
-}
-
-function flash(color){
-    let f=document.getElementById("flash");
-    f.style.background=color;
-    f.style.opacity="0.5";
-    setTimeout(()=>f.style.opacity="0",300);
-}
-
-/* ===== BACKGROUND MUSIC ===== */
-
-let musicStarted=false;
-
-document.addEventListener("click",()=>{
-    if(!musicStarted){
-        let bgm=document.getElementById("bgMusic");
-        bgm.volume=0.3;
-        bgm.play().catch(e=>console.log("Music error:",e));
-        musicStarted=true;
-    }
-});
-
-</script>
+        toggleButton.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                toggleButton.textContent = 'Pause Music';
+            } else {
+                music.pause();
+                toggleButton.textContent = 'Play Music';
+            }
+        });
+    </script>
 </body>
 </html>
